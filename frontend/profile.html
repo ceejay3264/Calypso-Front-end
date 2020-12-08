@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+
+	<meta charset="utf-8">
+
+	<style>
+
+		.upload-btn-wrapper {
+		 	position: relative;
+		 	overflow: hidden;
+		 	display: inline-block;
+		}
+
+		.upload-btn-wrapper input[type=file] {
+			font-size: 100px;
+		 	position: absolute;
+		 	z-index: 2 !important;
+			left: 0;
+		 	top: 0;
+		 	opacity: 0;
+		 	height: 100%;
+		}
+
+		.navbar{
+			background-color: #4E7BBC;
+		}
+
+		#main-container{
+			margin-top: 120px;
+			background-color: rgba(64, 137, 255, .9);
+			border-radius: 15px;
+			padding: 0;
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		#currRadius{
+			color: white;
+		}
+
+		.imgPh{
+			width: 100% !important;
+			height: 200px;
+			background-color: lightgray;
+			border-radius: 15px;
+		}
+
+		.image{
+			position: relative;
+			width: 100% !important;
+			height: 200px;
+			/*z-index: 3 !important;*/
+			border-radius: 15px;
+			background-size: cover;
+			background-position: center; 
+
+		}
+
+		#addImg{
+			font-size: 60px;
+			color: white;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+		 	transform: translate(-50%, -50%);
+			z-index: 1;
+			margin:0;
+			padding:0;
+		}
+
+		#output{
+			width: 100%;
+			/*position: absolute;*/
+			/*border-radius: 15px;*/
+		}
+
+		label{
+			color: white;
+		}
+
+		#main-width{
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.active{
+			color: white !important;
+		}
+
+		.title{
+			margin-bottom: 30px;
+			color: white;
+			font-family: "raleway", sans-serif;
+		}
+
+		.signin-link{
+			margin-top: 15px !important;
+			color: white !important;
+			font-family: "raleway-light", sans-serif;
+		}
+
+		.invisible{
+			display: none;
+		}
+
+		.invisibleImg{
+			display: none;
+		}
+
+		input[type=text]::placeholder{
+			color: rgba(255, 255, 255, 0.6);
+			font-family: "raleway-light", sans-serif;
+		}
+
+		input[type=password]::placeholder{
+			color: rgba(255, 255, 255, 0.6);
+			font-family: "raleway-light", sans-serif;
+		}
+
+
+		.sign-in{
+			display: flex;
+			align-items: right;
+			margin-right: 0 !important;
+		}
+
+		input[type=text] {
+			border: 0;
+  			outline: 0;
+  			background: transparent;
+  			border-bottom: 1px solid white;
+  			border-radius: 0;
+		}	
+
+		input[type=password] {
+			border: 0;
+  			outline: 0;
+  			background: transparent;
+  			border-bottom: 1px solid white;
+  			border-radius: 0;
+		}
+
+		.form-control{
+			color: white !important;
+		}
+
+		.form-control:focus{
+			background-color: transparent !important;
+			color: white !important;
+    		border: none !important;
+    		border-bottom: 2px solid white !important;
+    		outline: 0 !important;
+    		box-shadow:0 0 0 .2rem rgba(0, 123, 255, 0) !important ;
+		}
+
+		.delete{
+			background-color: #ff4f4f;
+			height: 30px;
+			width: 30px;
+			position: absolute;
+			top: -10px;
+			right: 1px;
+			color: white;
+			text-align: center;
+			border: none !important;
+			z-index: 3;
+		}
+
+		.imageShell:hover .delete{
+			display: block;
+		}
+
+		.imageShell{}
+
+		#hide{
+			display: none;
+		}
+
+		a{
+			color: white !important;
+		}
+
+		.overlay{
+		    background-color: black;
+			opacity: 0%;
+			position: absolute;
+			width: 100%;
+			height: 100%
+			padding: 0;
+			margin: 0;
+			top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+			z-index: 1;
+			border-radius: 15px;
+		}
+
+
+		@media (min-width: 768px){
+			#main-container{
+				width: 55%;
+				padding: 60px !important;
+			}
+		}
+
+		@media (min-width: 992px){
+			#main-container{
+				width: 55%;	
+			}
+
+			.imageShell:hover .delete{
+				display: block;
+			}
+
+			.imageShell:hover .overlay{
+				opacity: 30%;
+			}
+			#addImage:hover .overlay{
+				opacity: 30%;
+			}
+
+			.delete{
+				display: none;
+			}
+		}
+	</style>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" type ="text/css" href="home.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+
+
+</head>
+<body>
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light">
+      <a class="navbar-brand" href="index.html">calypso</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class = "nav-item">
+            <a href ="#" class="nav-link active"> Profile </a>
+          </li>
+          <li  id="soButton" class = "nav-item invisible">
+            <a onclick="signOut()" class="nav-link active"> Sign-Out </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+<div id="main-width">
+
+	<div id="main-container">
+
+		<h2 id="greeting" class="title"></h2>
+		<h4 class="title">Profile Settings</h4>
+
+		<form>
+
+			<div class="form-group row">
+				<a href="newPassword.html" style="display: block;">Change Password</a>
+			</div> 
+
+			<!-- <img id="output"/>	 -->
+
+			<div id="imgSection" class="form-group row">
+				<div id="addImage" class="col-sm-3 mt-2">
+					
+					<div class="imgPh upload-btn-wrapper">
+					  <p id="addImg">+</p>
+					  <input type="file" accept="image/jpg, image/jpeg, image/png" onchange="loadFile(event)" name="myfile" />
+					  <div class="overlay"></div>
+<!-- 					  <div id="output1" class="image invisibleImg"></div>
+ -->					</div>
+				</div>
+				<!-- <div id="image2" class="col-sm-3 mt-2">
+					<div class="imgPh upload-btn-wrapper invisible">
+					  <p id="addImg">+</p>
+					  <input type="file" accept="image/jpg, image/jpeg, image/png" onchange="loadFile(event, '#output2')" name="myfile" />
+					  <div id="output2" class="image invisibleImg"></div>
+					</div>
+					
+					
+				</div>
+				<div id="image3" class="col-sm-3 mt-2">
+					<div class="imgPh upload-btn-wrapper invisible">
+					  <p id="addImg">+</p>
+					  <input type="file" accept="image/jpg, image/jpeg, image/png" onchange="loadFile(event, '#output3')" name="myfile" />
+					  <div id="output3" class="image invisibleImg"></div>
+					</div>
+				</div>
+				<div id="image4" class="col-sm-3 mt-2">
+					<div class="imgPh upload-btn-wrapper invisible">
+					  <p id="addImg">+</p>
+					  <input type="file" accept="image/jpg, image/jpeg, image/png" onchange="loadFile(event, '#output4')" name="myfile" />
+					  <div id="output4" class="image invisibleImg"></div>
+					</div>
+				</div> -->
+			</div>
+
+			
+			
+			<div class="form-group row">
+				<div class="col-sm-1 col-md-1"><label for="bio">Bio:</label></div>
+				<div class="col-sm-11 col-md-11">
+					<input type="text" class="form-control" placeholder="Type something about yourself..." value="" id="bio-id" name="bio">
+				</div>
+			</div> 
+
+			<div class="form-group row">
+				<label for="radius">Radius:</label>
+				<input type="range" id="radius-id" name="radius" min="1" max="100">
+				<span id="currRadius"></span>
+			</div> 
+
+			<div class="form-group row">
+				
+				<label>I am interested in...</label>
+				<select name="gender" id="gender-id">
+				  <option value="0">Females</option>
+				  <option value="1">Males</option>
+				  <option value="2">Males and Females</option>
+				  <option value="3">Non-Binary</option>
+				</select>
+			</div> 
+
+			<div class="form-group row">
+				<div class="col-sm-7 col-md-7"></div>
+				<div class="col-sm-5 col-md-5 mt-2">
+					<button type="submit" class="actionButton sign-in">Save Changes</button>
+				</div>
+			</div>
+
+
+		</form>
+
+		<div id ="hide" class="font-italic text-danger">New passwords do not match. Please try again.</div>
+	</div>
+</div>
+
+	<script>
+		let imageCount = 0;
+		var reader = new FileReader(); 
+		let fileMap = new Map();
+
+
+		var loadFile = function(event) {
+			
+			// var imageUrl = window.webkitURL.createObjectURL(event.target.files[0]);
+			
+			if (typeof window.URLcreateObjectURL === "function") {
+				var imgID = window.URL.createObjectURL(event.target.files[0]);
+			}
+			else{
+				var imgID = window.webkitURL.createObjectURL(event.target.files[0]);
+			}
+
+			
+     		reader.readAsDataURL(event.target.files[0]);
+     		reader.onload = function () { 
+			    let imageUrl = reader.result;
+			    // console.log(imageUrl);
+			    fileMap.set(imgID, imageUrl);
+			}
+
+			displayImage(imgID);
+
+		  	//  <div class="col-sm-3 mt-2 imageShell">
+		  		//  <p class="invisible">imageUrl</p>
+				// 	<div id="output2" class="image invisibleImg">
+				//		<div class="overlay"></div>
+				//  </div> 
+				//  <button class="rounded-circle delete"><p>x</p></button>
+			//	</div>
+		 } 
+
+		 function displayImage(imgID){
+		 	let divImage = document.createElement("div");
+				divImage.classList.add("col-sm-3", "mt-2", "imageShell");
+
+				let innerP = document.createElement("a");
+				innerP.classList.add("invisible");
+				innerP.innerHTML = imgID;
+				innerP.setAttribute('href', imgID);
+
+				let innerDiv = document.createElement("div");
+				innerDiv.classList.add("image");
+				innerDiv.style.backgroundImage = 'url("' + imgID + '")';
+
+				let delButton = document.createElement("button");
+				delButton.classList.add("rounded-circle", "delete");
+				delButton.onclick = function(event) {
+					var toDelete = this.parentNode;
+
+					let mainC = document.getElementById("imgSection");
+					mainC.removeChild(toDelete);
+					imageCount -= 1;
+					if(imageCount < 4){
+						document.getElementById("addImage").classList.remove("invisible");
+					}
+
+					let htmlId = toDelete.childNodes[0].href;
+
+					fileMap.delete(htmlId);
+					console.log("to delete: " + htmlId);
+					// URL.revokeObjectURL(objectURL);
+				}
+
+				let pX = document.createElement("p");
+				pX.innerHTML = "X";
+
+				delButton.appendChild(pX);
+
+				let overlayDiv = document.createElement("div");
+				overlayDiv.classList.add("overlay");
+
+				innerDiv.appendChild(overlayDiv);
+
+				divImage.appendChild(innerP);
+				divImage.appendChild(innerDiv);
+				divImage.appendChild(delButton);
+				
+				document.getElementById("imgSection").prepend(divImage);
+				imageCount+=1;
+
+				if(imageCount == 4){
+					document.getElementById("addImage").classList.add("invisible");
+				}
+		 }
+    		
+		// };
+
+		let userEmail;
+		let userName;
+
+		console.log(getCookie("email"));
+        if(getCookie("email") != ""){
+            userEmail = getCookie("email");
+            $('#soButton').removeClass("invisible");
+            loadProfileData();
+            if(getCookie("active") == 1){
+                nowInactive(userEmail);
+                setCookie("active", 0);
+            }
+        }else{
+			window.location.replace("login.html");
+		}
+
+		function loadProfileData(){
+
+			URL = "https://calypso-dating.herokuapp.com/api/user/profile/?email=" + userEmail;
+
+			ajaxGet(URL, function(results){
+			  console.log(results);
+	          let JSresponse = JSON.parse(results);
+
+	          for(var i=0; i<JSresponse.images.length; i++){
+	          	if(JSresponse.images[i] != null){
+	          		console.log("image: "+JSresponse.images[i]);
+	          		displayImage(JSresponse.images[i]);
+	          		fileMap.set(JSresponse.images[i], JSresponse.images[i]);
+	          	}
+	          }
+	          
+	          $('#greeting').html("Hi " + JSresponse.name + "!");
+
+	          $('#bio-id').val(JSresponse.bio);
+
+	          $('#radius-id').val(JSresponse.radius);
+	          document.querySelector("#currRadius").innerHTML = document.querySelector("#radius-id").value + " miles";
+
+	          $('#gender-id').val(JSresponse.desiredGender);
+
+
+	        });
+
+
+
+		}
+
+		//document.querySelector("#currRadius").innerHTML = document.querySelector("#radius-id").value + " miles";
+
+		document.querySelector("#radius-id").oninput = function(event) {
+			document.querySelector("#currRadius").innerHTML = document.querySelector("#radius-id").value + " miles";
+
+		}
+
+		// Client-side input validation
+		document.querySelector('form').onsubmit = function(){
+			event.preventDefault();
+
+			var URL = "https://calypso-dating.herokuapp.com/api/user/update/profile";
+			
+
+			var bio_ = document.querySelector("#bio-id").value;
+
+			var radius_ = document.querySelector("#radius-id").value;
+
+			var dG = document.querySelector("#gender-id").value;
+
+			var count = 1;
+			let image1_ = null;
+         	let image2_ = null;
+         	let image3_ = null;
+         	let image4_ = null;
+
+         	fileMap.forEach(function(value, key) {
+				if(count == 1) image1_ = value;
+			 	else if(count == 2) image2_ = value;
+				else if(count == 3) image3_ = value;
+				else image4_ = value;
+				count += 1;
+			})
+
+			var updateData = {email: userEmail, bio: bio_, radius: radius_, desiredGender: dG, image1: image1_, image2: image2_, image3: image3_, image4: image4_};
+
+
+         	var data = JSON.stringify(updateData);
+         	console.log(data);
+
+			// var data = "email="+ email + "&bio="+bio+"&radius="+radius+"&dG="+gender;
+
+	        ajaxPut(URL, data, function(results){
+	          console.log(results);
+	        });
+			
+		}
+
+
+
+	</script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

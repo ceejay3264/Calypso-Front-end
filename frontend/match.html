@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type ="text/css" href="home.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+
+    <style>
+
+      #decline, #checkmark, #bio, #name{
+    	position: absolute !important;
+    	z-index: 3 !important;
+      }
+      
+
+      #name, #bio{
+      	color: white !important;
+      }
+
+      #main-width{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+
+      #main-container{
+        margin-top: 120px;
+        background-color: lightgrey;
+        border-radius: 15px;
+        padding: 30px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 550px;
+        position: relative;
+        background-position: center; 
+        background-size: cover;
+        /*position: absolute;
+        z-index: 2;*/
+      }
+
+      .overlay{
+	     background-color: black;
+		 opacity: 30%;
+		 position: absolute;
+		 width: 100%;
+		 height: 100%
+		 padding: 0;
+		 margin: 0;
+		 top: 0;
+	     right: 0;
+	     bottom: 0;
+	     left: 0;
+	     z-index: 1;
+		 border-radius: 15px;
+	  }
+
+      .invisible{
+        display: none;
+      }
+
+      #bio{
+        font-size: 18px;
+        color: rgba(42, 103, 201, 1.0);
+        font-family: "raleway", sans-serif;
+        position: absolute;
+        width: 80% !important;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        bottom:40px;
+        text-align: center;
+      }
+
+      .title{
+        margin-bottom: 30px;
+        color: rgba(42, 103, 201, 1.0);
+        font-family: "raleway", sans-serif;
+      }
+
+      #loading{
+        font-size: 60px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index: -2;
+        margin:0;
+        padding:0;
+        width: 100px;
+      }
+
+      #checkmark{
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        width: 60px;
+        cursor: pointer;
+      }
+
+      #decline{
+        position: absolute;
+        left: 25px;
+        bottom: 20px;
+        width: 45px;
+        cursor: pointer;
+      }
+
+      @media (min-width: 768px){
+        #main-width{
+          width: 70%;
+        }
+
+        #main-container{
+          width: 80%;
+          padding: 40px;
+        }
+
+        body{
+          background-position: 10% 40%;
+        }
+      }
+
+      @media (min-width: 992px){
+        #main-width{
+          width: 65%;
+        }
+
+        #main-container{
+          width: 25%;
+        }
+
+        body{
+          
+          background-position: initial;
+        }
+      }
+
+    </style>
+
+    <title>Match Now</title>
+  </head>
+  <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light">
+      <a class="navbar-brand" href="index.html">calypso</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class = "nav-item">
+            <a href ="profile.html" class="nav-link active"> Profile </a>
+          </li>
+          <li  id="soButton" class = "nav-item invisible">
+            <a onclick="signOut()" class="nav-link active"> Profile </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+    
+    <div class="main-width">
+
+      <img id="loading" src="loading.gif">
+
+      <div id="main-container" class="invisible">
+
+        <h2 id="name" class="title">Chris</h2>
+
+        <p id="bio">Alcohol guru. Communicator. Thinker. Writer. Extreme entrepreneur. Creator. Coffee fan.</p>
+
+
+        <a id="decline"><img style="width: 100%;" onclick="decline(event, this)" src="decline.png"></a>
+        <a id="checkmark"><img style="width: 100%;" onclick="connect(event, this)" src="heart.png"></a> 
+        <div class="overlay"></div>
+        <!-- add onclick function to make match -->
+      </div>
+
+    </div>
+
+    <script>
+
+
+      let matchName;
+
+      let userEmail;
+      
+      if(getCookie("email") != ""){
+        userEmail = getCookie("email");
+        findMatch();
+        if(getCookie("active") == 0){
+          nowActive(userEmail);
+          setCookie("active", 1);
+        }
+        getLatAndLon();
+      }else{
+        window.location.replace("login.html");
+      }
+
+      function findMatch() {
+      	console.log("IN FIND MATCH");
+          if (navigator.geolocation) {  
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            alert("Geolocation is not supported by this browser.");
+          }
+      }
+
+      function getLatAndLon(){
+          if (navigator.geolocation) {  
+            navigator.geolocation.getCurrentPosition(getPosition);
+          } else {
+            alert("Geolocation is not supported by this browser.");
+          }
+      }
+
+      function getPosition(position){
+        var lat_ = position.coords.latitude;
+        var lon_ = position.coords.longitude;
+
+        var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/encounter?email=" + userEmail + "&lat=" + lat_ + "&lon=" + lon_;
+        
+        var eventSource = new EventSource(urlEndPoint);
+
+        eventSource.addEventListener("potentialMatch", function(event) {
+
+          var matchData = JSON.parse(event.data);
+
+          $('#name').html(matchData.name);
+          $('#bio').html(matchData.bio);
+          $('#main-container').removeClass("invisible");
+        })
+
+
+
+      }
+
+      function showPosition(position) {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+        // console.log(lat);
+        // console.log(lon);
+
+        var URL = "https://calypso-dating.herokuapp.com/api/user/encounter?email=" + userEmail + "&lat=" + lat + "&lon=" + lon;
+
+        console.log("AJAX GET");
+        ajaxGet(URL, function(results) {
+          console.log(results);
+          // Convert the JSON string into JS objects
+          results = JSON.parse(results);
+          // console.log(results);
+
+          matchName = results.name;
+
+
+          $('#name').html(results.name);
+
+          $('#bio').html(results.bio);
+          
+          $('#main-container').removeClass("invisible");
+          $('#main-container').css("background-image", "url(" + results.images[0] + ")");
+          setTimeout(rematch, 15000);
+        });
+
+      }
+
+      function rematch() {
+        $('#main-container').addClass("invisible");
+        findMatch();
+      }
+
+
+      let decline = function(event, element){
+        var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=0";
+
+        ajaxGet(URL, function(results){
+          console.log(results);
+        });
+
+        //make main-container invisible
+        $('#main-container').addClass("invisible");
+
+        //call to find another match with a specified radius (ie. 10 mi)
+        clearTimeout();
+        findMatch();
+        
+      }
+
+      let connect = function(event, element){
+
+        setCookie("matchName", matchName);
+
+
+        var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=1";
+
+        ajaxGet(URL, function(results){
+          console.log(results);
+          let JSresponse = JSON.parse(results);
+          setCookie("roomNumber", JSresponse.roomNumber);
+          window.location.replace("chat.html");
+        });
+
+        //call to go to chat room
+      }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+    </script>
+
+
+
+    <script>
+      //all code in this script section is from the video
+      // $(document).ready(function(){
+      //   var urlEndPoint = "http://localhost:8080/api/user/encounter?email=" + userEmail + "&lat=" + lat + "&lon=" + lon;
+      //   var eventSource = new EventSource(urlEndPoint);
+
+      //   eventSource.addEventListener("potentialMatch", function(event) {
+
+      //     var matchData = JSON.parse(event.data);
+
+      //     $('#name').html(matchData.name);
+      //     $('#bio').html(matchData.bio);
+      //     $('#main-container').removeClass("invisible");
+      //   })
+
+      // });
+
+      // evtSource.addEventListener('error', function(){
+      //   if(event.currentTarget.readyState == EventSource.CLOSED){
+      //   }else{
+      //     evtSource.close();
+      //   }
+      // });
+
+      // window.onbeforeunload = function(){
+      //   evtSource.close();
+      // };
+
+      // function addBlock(title, text){
+      //   var a = document.createElement("article");
+      //   var h = document.createElement("H3");
+      //   var t = document.createTextNode(title);
+      //   h.appendChild(t);
+      //   var para = document.createElement("P");
+      //   para.innerHTML = text;
+      //   a.appendChild(h);
+      //   a.appendChild(para);
+      //   document.getElementById("pack").prepend(a);
+
+      // }
+
+
+
+    </script>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
+  </body>
+</html>

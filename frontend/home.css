@@ -1,0 +1,140 @@
+.navbar{
+  background-color: #4089ff !important;
+  border-bottom: .5px solid #BBD1EA;
+  font-family: "raleway", sans-serif;
+}
+
+body{
+  background-color: #f4f4f4 !important;
+}
+
+.inactive{
+	color: #BBD1EA !important;
+}
+
+
+
+.container-2{
+  position: absolute !important;
+  z-index: 2 !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.container{
+	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	-ms-transform: translate(-50%, -50%);
+  	transform: translate(-50%, -50%);
+  	z-index: 2;
+}
+
+.jumbotron{
+  height: 400px;
+  z-index: 0;  
+  margin-bottom: 0;
+  position: relative;
+}
+
+.homePageStep{
+  background-color: #4E7BBC;
+  height: 280px;
+  background-size: cover;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.explanation{
+  font-family: "raleway-light", sans-serif;
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parallax{
+  /* The image used */
+  background-image: url("cooking.jpeg");
+
+  /* Set a specific height */
+  height: 300px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.step {
+  font-family: "raleway", sans-serif; 
+  font-size: 2rem;
+}
+
+.actionButton{
+  border: 1px solid white !important;
+  border-radius: 15px;
+  background-color: transparent;
+  padding: 8px 18px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+
+  font-family: "raleway", sans-serif;
+}
+
+.action{
+	margin-left: auto;
+  	margin-right: auto;
+  	text-align: center;
+}
+
+#profileImage{
+  height: 35px;
+  width: 35px;
+  border-radius: 25px; 
+}
+
+#profileText{
+  margin-left: 0;
+  /*padding-left: 5px;*/
+  margin-bottom: 0 !important;
+  padding-left: 5px;
+}
+
+.lead{
+  font-family: "raleway-light", sans-serif;
+}
+
+@font-face{
+  font-family: 'raleway-light';
+  src: url('Raleway/static/Raleway-Light.ttf');
+}
+
+@font-face{
+  font-family: 'raleway';
+  src: url('Raleway/static/Raleway-Regular.ttf');
+}
+
+
+
+
+@media (min-width: 992px){
+  #profileText{
+    position: absolute;
+    right: 20px;
+    margin-left: 40px !important;
+  }
+
+  .display-5{
+    font-size: 60px;
+  }
+}
