@@ -288,6 +288,7 @@
             findMatch();
           }
           else{
+            available = 0;
             $('#noResults').addClass("invisible");
             // console.log(results);
             // Convert the JSON string into JS objects
@@ -302,7 +303,6 @@
               $('#name').html(results.name);
               $('#bio').html(results.bio);
               $('#main-container').removeClass("invisible");
-              available = 0;
               setTimeout(rematch, 15000);
               //send message to server reporting status
             }else{
@@ -331,8 +331,8 @@
         $('#main-container').addClass("invisible");
 
         //call to find another match with a specified radius (ie. 10 mi)
-        available=1;
         clearTimeout();
+        available=1;
         findMatch();
         
       }
@@ -348,6 +348,7 @@
           console.log(results);
           let JSresponse = JSON.parse(results);
           setCookie("roomNumber", JSresponse.roomNumber);
+          nowActive(userEmail);
           window.location.replace("chat.html");
         });
 
@@ -363,6 +364,7 @@
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
           if(available == 1){
+            available=0;
             var matchData = JSON.parse(event.data);
 
             console.log(matchData);
@@ -372,7 +374,6 @@
             $('#name').html(matchData.name);
             $('#bio').html(matchData.bio);
             $('#main-container').removeClass("invisible");
-            available=0;
             setTimeout(rematch, 15000);
             //send message to server reporting status
           }
