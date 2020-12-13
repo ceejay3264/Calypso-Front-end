@@ -233,7 +233,9 @@
         var eventSource = new EventSource(urlEndPoint);
 
         eventSource.addEventListener("potentialMatch", function(event) {
+          //this is where the availability check is made
 
+          
           var matchData = JSON.parse(event.data);
 
           console.log(matchData);
@@ -242,6 +244,7 @@
           $('#name').html(matchData.name);
           $('#bio').html(matchData.bio);
           $('#main-container').removeClass("invisible");
+          setTimeout(rematch, 15000);
         })
 
 
@@ -258,6 +261,10 @@
 
         console.log("AJAX GET");
         ajaxGet(URL, function(results) {
+          //this is where the availability check is made
+
+
+
           // console.log(results);
           // Convert the JSON string into JS objects
           results = JSON.parse(results);
@@ -272,6 +279,7 @@
           
           $('#main-container').removeClass("invisible");
           $('#main-container').css("background-image", "url(" + results.images[0] + ")");
+
           setTimeout(rematch, 15000);
         });
 
@@ -283,7 +291,7 @@
       }
 
 
-      let decline = function(event, element){
+      function decline(event, element){
         var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=0";
 
         ajaxGet(URL, function(results){
@@ -299,7 +307,7 @@
         
       }
 
-      let connect = function(event, element){
+      function connect(event, element){
 
         setCookie("matchName", matchName);
 
