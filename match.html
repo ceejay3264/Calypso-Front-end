@@ -230,7 +230,7 @@
         var lat_ = position.coords.latitude;
         var lon_ = position.coords.longitude;
 
-        var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/encounter?email=" + userEmail + "&lat=" + lat_ + "&lon=" + lon_;
+        var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
         var eventSource = new EventSource(urlEndPoint);
 
@@ -238,6 +238,8 @@
 
           var matchData = JSON.parse(event.data);
 
+          console.log(matchData.name);
+          console.log(matchData.bio);
           $('#name').html(matchData.name);
           $('#bio').html(matchData.bio);
           $('#main-container').removeClass("invisible");
