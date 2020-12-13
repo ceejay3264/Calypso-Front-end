@@ -221,7 +221,7 @@
           nowActive(userEmail);
           setCookie("active", 1);
         }
-        subscribe();
+        // subscribe();
       }else{
         window.location.replace("login.html");
       }
@@ -235,39 +235,39 @@
           }
       }
 
-      function subscribe(){
+      // function subscribe(){
 
-        var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
+      //   var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
-        var eventSource = new EventSource(urlEndPoint);
+      //   var eventSource = new EventSource(urlEndPoint);
 
-        eventSource.addEventListener("potentialMatch", function(event) {
-          //this is where the availability check is made
+      //   eventSource.addEventListener("potentialMatch", function(event) {
+      //     //this is where the availability check is made
 
           
-          var matchData = JSON.parse(event.data);
+      //     var matchData = JSON.parse(event.data);
 
-          console.log(matchData);
-          console.log(matchData.images[0]);
-          console.log(matchData.images);
-          $('#name').html(matchData.name);
-          $('#bio').html(matchData.bio);
-          $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
-          $('#main-container').removeClass("invisible");
-          setTimeout(rematch, 15000);
-        })
+      //     console.log(matchData);
+      //     console.log(matchData.images[0]);
+      //     console.log(matchData.images);
+      //     $('#name').html(matchData.name);
+      //     $('#bio').html(matchData.bio);
+      //     $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
+      //     $('#main-container').removeClass("invisible");
+      //     setTimeout(rematch, 15000);
+      //   })
 
-        eventSource.addEventListener("foundMatch", function(event) {
-          //this is where the availability check is made
+      //   eventSource.addEventListener("foundMatch", function(event) {
+      //     //this is where the availability check is made
 
-          var matchData = JSON.parse(event.data);
-          console(matchData.message);
+      //     var matchData = JSON.parse(event.data);
+      //     console(matchData.message);
 
-        })
+      //   })
 
 
 
-      }
+      // }
 
       function showPosition(position) {
         let lat = position.coords.latitude;

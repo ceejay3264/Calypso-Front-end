@@ -106,3 +106,34 @@ function ajaxGet(endpointUrl, returnFunction){
   }
   xhr.send();
 };
+
+function subscribe(){
+
+  var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
+  
+  var eventSource = new EventSource(urlEndPoint);
+
+  eventSource.addEventListener("potentialMatch", function(event) {
+    //this is where the availability check is made
+
+    
+    var matchData = JSON.parse(event.data);
+
+    console.log(matchData);
+    console.log(matchData.images[0]);
+    console.log(matchData.images);
+    $('#name').html(matchData.name);
+    $('#bio').html(matchData.bio);
+    $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
+    $('#main-container').removeClass("invisible");
+    setTimeout(rematch, 15000);
+  })
+
+  eventSource.addEventListener("foundMatch", function(event) {
+    //this is where the availability check is made
+
+    var matchData = JSON.parse(event.data);
+    console(matchData.message);
+
+  })
+}
