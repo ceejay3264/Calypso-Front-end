@@ -239,8 +239,6 @@
           var matchData = JSON.parse(event.data);
 
           console.log(matchData);
-          console.log(matchData.name);
-          console.log(matchData.bio);
           $('#name').html(matchData.name);
           $('#bio').html(matchData.bio);
           $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
