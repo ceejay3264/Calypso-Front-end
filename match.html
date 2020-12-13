@@ -204,7 +204,7 @@
           nowActive(userEmail);
           setCookie("active", 1);
         }
-        getLatAndLon();
+        subscribe();
       }else{
         window.location.replace("login.html");
       }
@@ -218,17 +218,15 @@
           }
       }
 
-      function getLatAndLon(){
-          if (navigator.geolocation) {  
-            navigator.geolocation.getCurrentPosition(getPosition);
-          } else {
-            alert("Geolocation is not supported by this browser.");
-          }
-      }
+      // function getLatAndLon(){
+      //     if (navigator.geolocation) {  
+      //       navigator.geolocation.getCurrentPosition(getPosition);
+      //     } else {
+      //       alert("Geolocation is not supported by this browser.");
+      //     }
+      // }
 
-      function getPosition(position){
-        var lat_ = position.coords.latitude;
-        var lon_ = position.coords.longitude;
+      function subscribe(){
 
         var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
