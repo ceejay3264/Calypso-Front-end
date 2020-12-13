@@ -314,8 +314,8 @@
       }
 
       function rematch() {
-        $('#main-container').addClass("invisible");
         available=1;
+        $('#main-container').addClass("invisible");
         findMatch();
       }
 
@@ -337,7 +337,7 @@
         
       }
 
-      function connect(event, element){
+      function connect(event, element){//completely redo this
 
         setCookie("matchName", matchName);
 
