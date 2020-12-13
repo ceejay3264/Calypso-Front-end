@@ -248,6 +248,14 @@
           setTimeout(rematch, 15000);
         })
 
+        eventSource.addEventListener("foundMatch", function(event) {
+          //this is where the availability check is made
+
+          var matchData = JSON.parse(event.data);
+          console(matchData.message);
+
+        })
+
 
 
       }
