@@ -288,12 +288,13 @@
             findMatch();
           }
           else{
-            available = 0;
+            
             $('#noResults').addClass("invisible");
             // console.log(results);
             // Convert the JSON string into JS objects
 
             if(available == 1){
+              available = 0;
               results = JSON.parse(results);
               // console.log(results);
 
