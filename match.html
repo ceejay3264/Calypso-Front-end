@@ -100,6 +100,21 @@
         width: 100px;
       }
 
+      #noResults{
+        font-size: 30px;
+        color: #4089ff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -40%);
+        transform: translate(-50%, 120%);
+        z-index: -2;
+        margin:0;
+        padding:0;
+        text-align: center;
+        font-family: "raleway", sans-serif;
+      }
+
       #checkmark{
         position: absolute;
         right: 20px;
@@ -220,14 +235,6 @@
           }
       }
 
-      // function getLatAndLon(){
-      //     if (navigator.geolocation) {  
-      //       navigator.geolocation.getCurrentPosition(getPosition);
-      //     } else {
-      //       alert("Geolocation is not supported by this browser.");
-      //     }
-      // }
-
       function subscribe(){
 
         var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
@@ -276,7 +283,7 @@
 
           if(results == "Invalid"){
             $('#noResults').removeClass("invisible");
-            match();
+            findMatch();
           }
           else{
           $('#noResults').addClass("invisible");
