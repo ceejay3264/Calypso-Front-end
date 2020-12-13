@@ -213,6 +213,8 @@
       let matchName;
 
       let userEmail;
+
+      let available = 1;
       
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
@@ -286,23 +288,26 @@
             findMatch();
           }
           else{
-          $('#noResults').addClass("invisible");
-          // console.log(results);
-          // Convert the JSON string into JS objects
-          results = JSON.parse(results);
-          // console.log(results);
+            $('#noResults').addClass("invisible");
+            // console.log(results);
+            // Convert the JSON string into JS objects
 
-          matchName = results.name;
+            if(available == 1){
+              results = JSON.parse(results);
+              // console.log(results);
+
+              matchName = results.name;
 
 
-          $('#name').html(results.name);
+              $('#name').html(results.name);
 
-          $('#bio').html(results.bio);
-          
-          $('#main-container').removeClass("invisible");
-          $('#main-container').css("background-image", "url(" + results.images[0] + ")");
-
-          setTimeout(rematch, 15000);
+              $('#bio').html(results.bio);
+              
+              $('#main-container').removeClass("invisible");
+              $('#main-container').css("background-image", "url(" + results.images[0] + ")");
+              available = 0;
+              setTimeout(rematch, 15000);
+            }
           }
         });
 
@@ -325,6 +330,7 @@
         $('#main-container').addClass("invisible");
 
         //call to find another match with a specified radius (ie. 10 mi)
+        available=1;
         clearTimeout();
         findMatch();
         
