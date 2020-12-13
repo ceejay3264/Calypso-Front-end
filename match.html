@@ -307,6 +307,9 @@
               $('#main-container').css("background-image", "url(" + results.images[0] + ")");
               available = 0;
               setTimeout(rematch, 15000);
+              //send message to server reporting status
+            }else{
+              //send message to server reporting status
             }
           }
         });
@@ -315,6 +318,7 @@
 
       function rematch() {
         $('#main-container').addClass("invisible");
+        available=1;
         findMatch();
       }
 
@@ -361,18 +365,23 @@
 
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
+          if(available == 1){
+            var matchData = JSON.parse(event.data);
 
-          
-          var matchData = JSON.parse(event.data);
-
-          console.log(matchData);
-          console.log(matchData.images[0]);
-          console.log(matchData.images);
-          $('#name').html(matchData.name);
-          $('#bio').html(matchData.bio);
-          $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
-          $('#main-container').removeClass("invisible");
-          setTimeout(rematch, 15000);
+            console.log(matchData);
+            console.log(matchData.images[0]);
+            console.log(matchData.images);
+            $('#name').html(matchData.name);
+            $('#bio').html(matchData.bio);
+            $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
+            $('#main-container').removeClass("invisible");
+            available=0;
+            setTimeout(rematch, 15000);
+            //send message to server reporting status
+          }
+          else{
+            //send message to server reporting status
+          }
         })
 
         eventSource.addEventListener("foundMatch", function(event) {
