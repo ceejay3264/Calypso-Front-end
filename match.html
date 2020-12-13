@@ -298,13 +298,10 @@
 
               matchName = results.name;
 
-
-              $('#name').html(results.name);
-
-              $('#bio').html(results.bio);
-              
-              $('#main-container').removeClass("invisible");
               $('#main-container').css("background-image", "url(" + results.images[0] + ")");
+              $('#name').html(results.name);
+              $('#bio').html(results.bio);
+              $('#main-container').removeClass("invisible");
               available = 0;
               setTimeout(rematch, 15000);
               //send message to server reporting status
@@ -371,9 +368,9 @@
             console.log(matchData);
             console.log(matchData.images[0]);
             console.log(matchData.images);
+            $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
             $('#name').html(matchData.name);
             $('#bio').html(matchData.bio);
-            $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
             $('#main-container').removeClass("invisible");
             available=0;
             setTimeout(rematch, 15000);
