@@ -107,7 +107,7 @@ function ajaxGet(endpointUrl, returnFunction){
   xhr.send();
 };
 
-function subscribe(){
+function subscribe(userEmail){
 
   var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
   
