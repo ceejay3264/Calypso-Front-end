@@ -175,6 +175,8 @@
 
       <img id="loading" src="loading.gif">
 
+      <h2 id="noResults" class="invisible">Sorry! We couldn't find a match for you at this time. We'll keeping looking though!</h2>
+
       <div id="main-container" class="invisible">
 
         <h2 id="name" class="title"></h2>
@@ -272,8 +274,12 @@
         ajaxGet(URL, function(results) {
           //this is where the availability check is made
 
-
-
+          if(results == "Invalid"){
+            $('#noResults').removeClass("invisible");
+            match();
+          }
+          else{
+          $('#noResults').addClass("invisible");
           // console.log(results);
           // Convert the JSON string into JS objects
           results = JSON.parse(results);
@@ -290,6 +296,7 @@
           $('#main-container').css("background-image", "url(" + results.images[0] + ")");
 
           setTimeout(rematch, 15000);
+          }
         });
 
       }
