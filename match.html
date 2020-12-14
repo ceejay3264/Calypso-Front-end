@@ -287,6 +287,21 @@
             $('#noResults').removeClass("invisible");
             findMatch();
           }
+          else{
+            available=0;
+            var matchData = JSON.parse(results);
+            $('#noResults').addClass("invisible");
+
+            console.log(matchData);
+            console.log(matchData.images[0]);
+            console.log(matchData.images);
+            $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
+            $('#name').html(matchData.name);
+            $('#bio').html(matchData.bio);
+            $('#main-container').removeClass("invisible");
+            setTimeout(rematch, 15000);
+            //send message to server reporting status
+          }
         });
 
       }
