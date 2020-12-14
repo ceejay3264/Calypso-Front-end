@@ -342,7 +342,7 @@
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
           console.log("WE RECEIVED A MATCH");
-          if(available == 1){
+          
             available=0;
             var matchData = JSON.parse(event.data);
             $('#noResults').addClass("invisible");
@@ -356,10 +356,6 @@
             $('#main-container').removeClass("invisible");
             setTimeout(rematch, 15000);
             //send message to server reporting status
-          }
-          else{
-            //send message to server reporting status
-          }
         })
       }
 
