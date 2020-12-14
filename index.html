@@ -92,7 +92,7 @@
             $('#login').addClass("invisible");
             $('#signup').addClass("invisible");
             $('#soButton').removeClass("invisible");
-
+            console.log(getCookie("active"));
             if(getCookie("active") == 1){
                 nowInactive(userEmail);
                 setCookie("active", 0);
