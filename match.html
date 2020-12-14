@@ -218,12 +218,11 @@
       
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
-        findMatch();
+        subscribe();
         if(getCookie("active") == 0){
           nowActive(userEmail);
           setCookie("active", 1);
         }
-        subscribe();
       }else{
         window.location.replace("login.html");
       }
@@ -354,6 +353,8 @@
         var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
         var eventSource = new EventSource(urlEndPoint);
+
+        findMatch();
 
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
