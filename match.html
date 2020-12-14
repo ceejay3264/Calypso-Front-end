@@ -308,8 +308,13 @@
 
       function rematch() {
         available=1;
+        var URL = "https://calypso-dating.herokuapp.com/api/user/inactive/?email=" + userEmail + "&available=1";
         $('#main-container').addClass("invisible");
-        findMatch();
+        ajaxGet(URL, function(results){//setting currMatch to NULL
+          
+            findMatch();
+        });
+        
       }
 
 
