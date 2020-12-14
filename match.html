@@ -283,7 +283,7 @@
         ajaxGet(URL, function(results) {
           //this is where the availability check is made
 
-          if(results == "Invalid"){
+          if(results == "Invalid" && available==1){
             $('#noResults').removeClass("invisible");
             findMatch();
           }
