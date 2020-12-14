@@ -287,29 +287,6 @@
             $('#noResults').removeClass("invisible");
             findMatch();
           }
-          else{
-            
-            $('#noResults').addClass("invisible");
-            // console.log(results);
-            // Convert the JSON string into JS objects
-
-            if(available == 1){
-              available = 0;
-              results = JSON.parse(results);
-              // console.log(results);
-
-              matchName = results.name;
-
-              $('#main-container').css("background-image", "url(" + results.images[0] + ")");
-              $('#name').html(results.name);
-              $('#bio').html(results.bio);
-              $('#main-container').removeClass("invisible");
-              setTimeout(rematch, 15000);
-              //send message to server reporting status
-            }else{
-              //send message to server reporting status
-            }
-          }
         });
 
       }
@@ -367,6 +344,7 @@
           if(available == 1){
             available=0;
             var matchData = JSON.parse(event.data);
+            $('#noResults').addClass("invisible");
 
             console.log(matchData);
             console.log(matchData.images[0]);
@@ -381,14 +359,6 @@
           else{
             //send message to server reporting status
           }
-        })
-
-        eventSource.addEventListener("foundMatch", function(event) {
-          //this is where the availability check is made
-
-          var matchData = JSON.parse(event.data);
-          console.log(matchData.message);
-
         })
       }
 
