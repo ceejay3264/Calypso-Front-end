@@ -371,7 +371,7 @@
         };
 
         eventSource.onopen = function() {
-          setCookie("subscribe", 0);
+          setCookie("subscribe", 1);
           if(getCookie("active") == 0){
             nowActive(userEmail);
             setCookie("active", 1);
