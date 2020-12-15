@@ -325,9 +325,6 @@
 
         //make main-container invisible
         $('#main-container').addClass("invisible");
-
-        //call to find another match with a specified radius (ie. 10 mi)
-        
         
         findMatch();
         
@@ -336,7 +333,6 @@
       function connect(event, element){//completely redo this
 
         setCookie("matchName", matchName);
-
 
         var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=1";
 
@@ -357,13 +353,6 @@
         
         var eventSource = new EventSource(urlEndPoint);
 
-        if(getCookie("active") == 0){
-          nowActive(userEmail);
-          setCookie("active", 1);
-        }
-
-        findMatch();
-
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
           console.log("WE RECEIVED A MATCH");
@@ -382,6 +371,13 @@
             setTimeout(rematch, 15000);
             //send message to server reporting status
         })
+
+        if(getCookie("active") == 0){
+          nowActive(userEmail);
+          setCookie("active", 1);
+        }
+
+        findMatch();
       }
 
       function getCookie(cname) {
