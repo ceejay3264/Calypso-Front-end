@@ -353,6 +353,15 @@
         
         var eventSource = new EventSource(urlEndPoint);
 
+        eventSource.onopen = function() {
+          if(getCookie("active") == 0){
+            nowActive(userEmail);
+            setCookie("active", 1);
+          }
+
+          findMatch();
+        };
+
         eventSource.addEventListener("potentialMatch", function(event) {
           //this is where the availability check is made
           console.log("WE RECEIVED A MATCH");
@@ -372,12 +381,7 @@
             //send message to server reporting status
         })
 
-        if(getCookie("active") == 0){
-          nowActive(userEmail);
-          setCookie("active", 1);
-        }
-
-        findMatch();
+        
       }
 
     </script>
