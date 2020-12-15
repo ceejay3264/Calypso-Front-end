@@ -218,11 +218,7 @@
       
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
-        subscribe();
-        if(getCookie("active") == 0){
-          nowActive(userEmail);
-          setCookie("active", 1);
-        }
+        subscribe();  
       }else{
         window.location.replace("login.html");
       }
@@ -361,6 +357,11 @@
         
         var eventSource = new EventSource(urlEndPoint);
 
+        if(getCookie("active") == 0){
+          nowActive(userEmail);
+          setCookie("active", 1);
+        }
+
         findMatch();
 
         eventSource.addEventListener("potentialMatch", function(event) {
@@ -400,11 +401,6 @@
       }
 
     </script>
-
-
-
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
