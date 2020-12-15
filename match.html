@@ -220,7 +220,17 @@
       
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
-        subscribe();  
+
+        if(getCookie("subscribe") != 0){
+          if(getCookie("active") == 0){
+            nowActive(userEmail);
+            setCookie("active", 1);
+          }
+
+          findMatch();
+        }else{
+          subscribe(); 
+        }
       }else{
         window.location.replace("login.html");
       }
@@ -361,12 +371,14 @@
         };
 
         eventSource.onopen = function() {
+          setCookie("subscribe", 0);
           if(getCookie("active") == 0){
             nowActive(userEmail);
             setCookie("active", 1);
           }
 
           findMatch();
+
         };
 
         eventSource.addEventListener("potentialMatch", function(event) {
