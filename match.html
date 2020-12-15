@@ -319,6 +319,8 @@
 
 
       function decline(event, element){
+        available=1;
+        clearTimeout();
         var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=0";
 
         ajaxGet(URL, function(results){
@@ -329,8 +331,8 @@
         $('#main-container').addClass("invisible");
 
         //call to find another match with a specified radius (ie. 10 mi)
-        clearTimeout();
-        available=1;
+        
+        
         findMatch();
         
       }
@@ -399,52 +401,6 @@
 
     </script>
 
-
-
-    <script>
-      //all code in this script section is from the video
-      // $(document).ready(function(){
-      //   var urlEndPoint = "http://localhost:8080/api/user/encounter?email=" + userEmail + "&lat=" + lat + "&lon=" + lon;
-      //   var eventSource = new EventSource(urlEndPoint);
-
-      //   eventSource.addEventListener("potentialMatch", function(event) {
-
-      //     var matchData = JSON.parse(event.data);
-
-      //     $('#name').html(matchData.name);
-      //     $('#bio').html(matchData.bio);
-      //     $('#main-container').removeClass("invisible");
-      //   })
-
-      // });
-
-      // evtSource.addEventListener('error', function(){
-      //   if(event.currentTarget.readyState == EventSource.CLOSED){
-      //   }else{
-      //     evtSource.close();
-      //   }
-      // });
-
-      // window.onbeforeunload = function(){
-      //   evtSource.close();
-      // };
-
-      // function addBlock(title, text){
-      //   var a = document.createElement("article");
-      //   var h = document.createElement("H3");
-      //   var t = document.createTextNode(title);
-      //   h.appendChild(t);
-      //   var para = document.createElement("P");
-      //   para.innerHTML = text;
-      //   a.appendChild(h);
-      //   a.appendChild(para);
-      //   document.getElementById("pack").prepend(a);
-
-      // }
-
-
-
-    </script>
 
 
 
