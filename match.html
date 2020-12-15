@@ -221,7 +221,7 @@
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
 
-        if(getCookie("subscribe") != 0){
+        if(getCookie("subscribe") == 1){
           if(getCookie("active") == 0){
             nowActive(userEmail);
             setCookie("active", 1);
