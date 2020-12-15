@@ -215,6 +215,8 @@
       let userEmail;
 
       let available = 1;
+
+
       
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
@@ -351,7 +353,11 @@
 
         var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
-        var eventSource = new EventSource(urlEndPoint);
+        var eventSource = new EventSource(urlEndPoint, true);
+
+        window.onbeforeunload = function(){
+          eventSource.close();
+        };
 
         eventSource.onopen = function() {
           if(getCookie("active") == 0){
