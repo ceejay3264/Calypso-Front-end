@@ -353,7 +353,7 @@
 
         var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
         
-        var eventSource = new EventSource(urlEndPoint, true);
+        var eventSource = new EventSource(urlEndPoint, { withCredentials: true });
 
         window.onbeforeunload = function(){
           eventSource.close();
