@@ -31,30 +31,11 @@
             </form>
         </div>
     </div> -->
-
-    <nav class="navbar  navbar-expand-lg navbar-dark bg-light">
-      <a class="navbar-brand" href="index.html">calypso</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class = "nav-item">
-            <a href ="profile.html" class="nav-link active"> Profile </a>
-          </li>
-          <li  id="soButton" class = "nav-item invisible">
-            <a onclick="signOut()" class="nav-link active"> Profile </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div id="chat-page" > <!-- class="hidden" -->
+    <!-- <div id="chat-page" > class="hidden" -->
         <div class="chat-container">
 
             <div class="chat-header">
-                <h2 id="name"></h2> <!-- name of match -->
+                <h2 id="name">Christopher</h2> <!-- name of match -->
             </div>
             <div class="connecting">
                 Connecting...
@@ -74,7 +55,9 @@
              <button type="submit" onclick="disconnect()" id="delete" class="btn btn-danger">Disconnect</button>
         </div>
        
-    </div>
+    <!-- </div> -->
+
+    
 
     <script>
         
@@ -101,21 +84,21 @@
             sendMessage();
         });
           
-        if(getCookie("email") != ""){
-            userEmail = getCookie("email");
-            roomNumber = getCookie("roomNumber");
-            matchName = getCookie("matchName");
-            $('#name').html(matchName);
-            console.log(roomNumber);
-            console.log(matchName);
-            if(getCookie("active") == 0){
-                nowActive(userEmail);
-                setCookie("active", 1);
-            }
-            connect(event);
-        }else{
-            window.location.replace("login.html");
-        }
+        // if(getCookie("email") != ""){
+        //     userEmail = getCookie("email");
+        //     roomNumber = getCookie("roomNumber");
+        //     matchName = getCookie("matchName");
+        //     $('#name').html(matchName);
+        //     console.log(roomNumber);
+        //     console.log(matchName);
+        //     if(getCookie("active") == 0){
+        //         nowActive(userEmail);
+        //         setCookie("active", 1);
+        //     }
+        //     connect(event);
+        // }else{
+        //     window.location.replace("login.html");
+        // }
 
         function disconnect(){
             window.location.replace("match.html");

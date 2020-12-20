@@ -1,4 +1,4 @@
-* {
+/** {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -7,9 +7,9 @@
 html,body {
     height: 100%;
     overflow: hidden;
-}
+}*/
 
-body {
+/*body {
     margin: 0;
     padding: 0;
     font-weight: 400;
@@ -28,13 +28,13 @@ body:before {
     background: #128ff2;
     content: "";
     z-index: 0;
-}
+}*/
 
-.clearfix:after {
+/*.clearfix:after {
     display: block;
     content: "";
     clear: both;
-}
+}*/
 
 .hidden {
     display: none;
@@ -103,51 +103,8 @@ button.accent {
     color: #fff !important;
 }
 
-#username-page {
-    text-align: center !important;
-}
-
-.username-page-container {
-    background: #fff;
-    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-    border-radius: 2px;
-    width: 100%;
-    max-width: 500px;
-    display: inline-block;
-    margin-top: 42px;
-    vertical-align: middle;
-    position: relative;
-    padding: 35px 55px 35px;
-    min-height: 250px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    margin-top: -160px;
-}
-
-.username-page-container .username-submit {
-    margin-top: 10px;
-}
-
-
-#chat-page {
-    position: relative;
-    height: 100%;
-}
-
 .chat-container {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-    margin-top: 30px;
-    height: calc(100% - 60px);
-    max-height: 600px;
-    position: relative;
-    border-radius: 15px;
+    
 }
 
 #chat-page ul {
@@ -218,27 +175,11 @@ button.accent {
     color: #43464b;
 }
 
-#messageForm .input-group input {
-    float: left;
-    width: calc(100% - 85px);
-}
-
-#messageForm .input-group button {
-    float: left;
-    width: 80px;
-    height: 38px;
-    margin-left: 5px;
-}
 
 
 
-.chat-header {
-    text-align: center;
-    padding: 15px;
-    border-bottom: 1px solid #ececec;
-    background-color: #4089ff;
-    border-radius: 15px 15px 0px 0px; /*TL TR BR BL*/
-}
+
+
 
 .chat-header h2 {
     margin: 0;
@@ -262,14 +203,7 @@ button.accent {
     color: white !important;
 }
 
-#delete{
-    position: absolute;
-    bottom: -70px;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
+
 
 
 @media screen and (max-width: 730px) {

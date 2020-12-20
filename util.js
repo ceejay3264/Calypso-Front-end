@@ -15,8 +15,8 @@ function signOut(){
 }
 
 
-function nowInactive(email){
-    var URL = "https://calypso-dating.herokuapp.com/api/user/inactive/?email=" + email+ "&available=0";
+function nowInactive(email, available){
+    var URL = "https://calypso-dating.herokuapp.com/api/user/inactive/?email=" + email+ "&available="+available.toString(10);
 
     ajaxGet(URL, function(results){
       console.log(results);

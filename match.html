@@ -13,7 +13,22 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="util.js"></script>
 
+    <!-- Below are from chat.html -->
+<!--     <link rel="stylesheet" href="main.css" /> -->    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script type="text/javascript" src="util.js"></script>
+    <link rel="stylesheet" type ="text/css" href="home.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="main.js"></script>
+
     <style>
+
+      body{
+        background-color: #ffffff !important;
+      }
 
       #decline, #checkmark, #bio, #name{
     	position: absolute !important;
@@ -30,6 +45,7 @@
         margin-left: auto;
         margin-right: auto;
         position: relative;
+        
       }
 
       #main-container{
@@ -49,20 +65,20 @@
       }
 
       .overlay{
-	     background-color: black;
-		 opacity: 30%;
-		 position: absolute;
-		 width: 100%;
-		 height: 100%
-		 padding: 0;
-		 margin: 0;
-		 top: 0;
-	     right: 0;
-	     bottom: 0;
-	     left: 0;
-	     z-index: 1;
-		 border-radius: 15px;
-	  }
+        background-color: black;
+    		opacity: 30%;
+    		position: absolute;
+    		width: 100%;
+    		height: 100%
+    		padding: 0;
+    		margin: 0;
+    		top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+  		  border-radius: 15px;
+  	  }
 
       .invisible{
         display: none;
@@ -78,6 +94,124 @@
         transform: translate(-50%, -50%);
         bottom:40px;
         text-align: center;
+      }
+
+      #chat-container{
+        display: none;
+        color: rgba(42, 103, 201, 1.0);
+        position: absolute;
+        z-index: 5 !important;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        text-align: center;
+        width: 100%;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+        height: calc(100% - 60px);
+        max-height: 600px; 
+        border-radius: 15px;
+      }
+
+      .chat-header {
+        text-align: center;
+        padding: 15px;
+        border-bottom: 1px solid #ececec;
+        background-color: #4089ff;
+        border-radius: 15px 15px 0px 0px; /*TL TR BR BL*/
+        font-family: "raleway", sans-serif !important;
+        height: 65px;
+      }
+
+      .connecting {
+        padding-top: 5px;
+        text-align: center;
+        color: #777;
+        position: absolute;
+        top: 65px;
+        width: 100%;
+        font-family: "raleway", sans-serif !important;
+      }
+
+      #disconnect{
+        position: absolute;
+        bottom: -70px;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      #messageForm{
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 90%;
+        z-index: 1;
+
+      }
+
+      #messageForm .input-group input {
+        float: left;
+        width: calc(100% - 85px);
+      }
+
+      #messageForm .input-group button {
+        float: left;
+        width: 80px;
+        height: 38px;
+        margin-left: 5px;
+      }
+
+      input {
+        padding-left: 10px;
+        outline: none;
+      }
+
+      .form-control {
+        width: 100%;
+        min-height: 38px;
+        font-size: 15px;
+        border: 1px solid #c8c8c8;
+      }
+
+      button {
+        box-shadow: none;
+        border: 1px solid transparent;
+        font-size: 14px;
+        outline: none;
+        line-height: 100%;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding: 0.6rem 1rem;
+        border-radius: 2px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        min-height: 38px;
+        border-radius: 15px !important;
+      }
+
+      button.default {
+        background-color: #4089ff !important;
+        color: #333;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      button.primary {
+        background-color: #4089ff !important;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+        color: #fff !important;
+      }
+
+      button.accent {
+        background-color: #4089ff !important;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+        color: #fff !important;
       }
 
       .title{
@@ -184,8 +318,6 @@
       </div>
     </nav>
 
-
-    
     <div class="main-width">
 
       <img id="loading" src="loading.gif">
@@ -205,10 +337,43 @@
         <!-- add onclick function to make match -->
       </div>
 
+      <div id="chat-container">
+
+            <div class="chat-header">
+                <h2 id="name">Christopher</h2> <!-- name of match -->
+            </div>
+            <div class="connecting">
+                Connecting...
+            </div>
+            <ul id="messageArea">
+
+            </ul>
+            <form id="messageForm" name="messageForm">
+                <div class="form-group">
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                        <button id="sendButton" type="submit" class="primary">Send</button>
+
+                    </div>
+                </div>
+            </form>
+             <button type="submit" id="disconnect" class="btn btn-danger">Disconnect</button>
+        </div>
+
     </div>
 
     <script>
 
+
+      let inChat = 0;
+
+      let myDecision = 0;
+      let matchDecision = 0;
+      //DECISION TYPES:
+      //0 -> no decision yet
+      //1 -> Decline
+      //2 -> Accepted
+      //3 -> Leave Match
 
       let matchName;
 
@@ -216,26 +381,22 @@
 
       let available = 1;
 
+      let prefix = "https://calypso-dating.herokuapp.com";
+
       if(getCookie("email") != ""){
         userEmail = getCookie("email");
-
-        console.log("SUBSCRIBED? "+getCookie("subscribe"));
-        if(getCookie("subscribe") == 1){
+ 
           if(getCookie("active") == 0){
             nowActive(userEmail);
             setCookie("active", 1);
           }
-
-          findMatch();
-        }else{
-          subscribe(); 
-        }
+          // findMatch(); DON"T CALL FINDMATCH() YET
       }else{
         window.location.replace("login.html");
       }
 
       function findMatch() {
-      	console.log("IN FIND MATCH");
+        console.log("IN FIND MATCH");
           if (navigator.geolocation) {  
             navigator.geolocation.getCurrentPosition(showPosition);
           } else {
@@ -243,47 +404,11 @@
           }
       }
 
-      // function subscribe(){
-
-      //   var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
-        
-      //   var eventSource = new EventSource(urlEndPoint);
-
-      //   eventSource.addEventListener("potentialMatch", function(event) {
-      //     //this is where the availability check is made
-
-          
-      //     var matchData = JSON.parse(event.data);
-
-      //     console.log(matchData);
-      //     console.log(matchData.images[0]);
-      //     console.log(matchData.images);
-      //     $('#name').html(matchData.name);
-      //     $('#bio').html(matchData.bio);
-      //     $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
-      //     $('#main-container').removeClass("invisible");
-      //     setTimeout(rematch, 15000);
-      //   })
-
-      //   eventSource.addEventListener("foundMatch", function(event) {
-      //     //this is where the availability check is made
-
-      //     var matchData = JSON.parse(event.data);
-      //     console(matchData.message);
-
-      //   })
-
-
-
-      // }
-
       function showPosition(position) {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-        // console.log(lat);
-        // console.log(lon);
 
-        var URL = "https://calypso-dating.herokuapp.com/api/user/encounter?email=" + userEmail + "&lat=" + lat + "&lon=" + lon;
+        var URL = prefix+"/api/user/encounter?email=" + userEmail + "&lat=" + lat + "&lon=" + lon;
 
         console.log("AJAX GET");
         ajaxGet(URL, function(results) {
@@ -297,6 +422,9 @@
           else{
             available=0;
             var matchData = JSON.parse(results);
+            matchEmail = matchData.email;
+            matchName = matchData.name;
+
             $('#noResults').addClass("invisible");
 
             console.log(matchData);
@@ -311,96 +439,214 @@
           }
         });
 
+      }
+      
+      function connect(username){ //1-1
+        return new Promise((resolve, reject) => {
+          let stompClient = Stomp.over(new SockJS(prefix+'/websocket-chat'))
+          stompClient.connect({}, (frame) => resolve(stompClient))
+        })
+      }
+
+
+      function disconnect(stompClient, username, disconnectBtn, clicked = false){
+        nowInactive(userEmail, 1);
+        matchEmail = "";
+        matchName = "";
+        available=1;
+        
+        stompClientSendMessage(stompClient, prefix+'/app/message', JSON.stringify({
+          toWhom: matchEmail,
+          fromWho: userEmail,
+          message: "3",
+          type: 1
+        }))
+
+        if(clicked){
+          stompClientSendMessage(stompClient, prefix+'/app/unregister', userEmail);
+        }
+        stompClient.disconnect(); //6-1
+        leaveChat();
       }
 
       function rematch() {
         available=1;
-        var URL = "https://calypso-dating.herokuapp.com/api/user/inactive/?email=" + userEmail + "&available=1";
         $('#main-container').addClass("invisible");
-        ajaxGet(URL, function(results){//setting currMatch to NULL
-          
-            findMatch();
-        });
-        
+        findMatch();
       }
 
+      function stompClientSendMessage(stompClient, endpoint, message){ // 9
+        stompClient.send(endpoint, {}, message)
+        return stompClient
+      }
+
+      function handleMessage(stompClient, username, {fromWho, message, type}){
+
+        // matchName = fromWho;
+        if(type==0){//message is JSON DATA
+          available=0;
+          console.log("WE RECEIVED A MATCH");
+          var matchData = JSON.parse(message);
+          displayMatch(matchData);
+        }
+        else if(type==1){//message is a decision
+          var dec = JSON.parse(message);
+          matchDecision = dec.message;
+          checkMatch();
+        }
+        else if(type==2){//message is chat message, message is already parsed.
+          displayMessage(0, matchName);
+        }
+        else if(type==3){
+          //call endpoint to update currMatch
+          leaveChat();
+
+        }
+      }
+
+      function clickSendButton(chatRoom, toWhom, stompClient, userEmail) {//invoke when match is made and send message button is visible
+        document.getElementById("#sendButton").addEventListener('click', () => {
+          
+          let msg = document.getElementById("#message").value;
+         
+          if (msg && msg !== '') {
+            stompClientSendMessage(stompClient, prefix+'/app/message', JSON.stringify({
+              toWhom: toWhom,
+              fromWho: userEmail,
+              message: msg,
+              type: 2
+            }))
+            
+            displayMessage(0, "Me");
+          } else {
+            //ALERT THAT MESSAGE CANNOT BE EMPTY
+          }
+        }, true)
+      }
+
+      function leaveChat(){
+        matchEmail = "";
+        matchName = "";
+        available=1;
+        $('#chat-container').addClass("invisible");
+        findMatch();
+      }
+
+      function displayMessage(fromMatch, name){
+        var messageElement = document.createElement('li');
+
+        messageElement.classList.add('chat-message');
+
+        var avatarElement = document.createElement('i');
+        var firstLetter = name.charAt(0);
+        var avatarText = document.createTextNode(firstLetter);
+        avatarElement.appendChild(avatarText);
+
+        if(fromMatch == 1) avatarElement.style['background-color'] =  "#d3d3d3";
+        else avatarElement.style['background-color'] =  "#4089ff";
+
+        messageElement.appendChild(avatarElement);
+
+        var usernameElement = document.createElement('span');
+        var usernameText = document.createTextNode(name);
+        usernameElement.appendChild(usernameText);
+        messageElement.appendChild(usernameElement);
+
+        var textElement = document.createElement('p');
+        var messageText = document.createTextNode(message.content);
+        textElement.appendChild(messageText);
+
+        messageElement.appendChild(textElement);
+
+        var messageArea = document.querySelector('#messageArea');
+        messageArea.appendChild(messageElement);
+        messageArea.scrollTop = messageArea.scrollHeight;
+
+      }
+
+      function displayMatch(matchData){
+          $('#noResults').addClass("invisible");
+          console.log(matchData);
+          console.log(matchData.images[0]);
+          console.log(matchData.images);
+          matchName = matchData.name;
+          matchEmail = matchData.email;
+          $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
+          $('#name').html(matchData.name);
+          $('#bio').html(matchData.bio);
+          $('#main-container').removeClass("invisible");
+          setTimeout(rematch, 15000);
+      }
 
       function decline(event, element){
-        available=1;
         clearTimeout();
-        var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=0";
 
-        ajaxGet(URL, function(results){
-          console.log(results);
-        });
-
-        //make main-container invisible
+        stompClientSendMessage(stompClient, prefix+'/app/message', JSON.stringify({
+          toWhom: matchEmail,
+          fromWho: userEmail,
+          message: "1",
+          type: 1
+        }))
+        nowInactive(userEmail, 1);
+        matchEmail = "";
+        matchName = "";
+        available=1;
         $('#main-container').addClass("invisible");
-        
         findMatch();
-        
       }
 
-      function connect(event, element){//completely redo this
+      function accept(event, element){
+        stompClientSendMessage(stompClient, prefix+'/app/message', JSON.stringify({
+          toWhom: matchEmail,
+          fromWho: userEmail,
+          message: "2",
+          type: 1
+        }))
 
-        setCookie("matchName", matchName);
-
-        var URL="https://calypso-dating.herokuapp.com/api/user/update/match?user="+userEmail+"&answer=1";
-
-        ajaxGet(URL, function(results){
-          console.log(results);
-          let JSresponse = JSON.parse(results);
-          setCookie("roomNumber", JSresponse.roomNumber);
-          nowActive(userEmail);
-          window.location.replace("chat.html");
-        });
-
-        //call to go to chat room
+        myDecision = 2;
+        checkMatch();
       }
 
-      function subscribe(){
-        console.log("IN SUBSCRIBE");
+      window.onbeforeunload = function(){
+          disconnect(stompClient, username, connectButton, disconnectButton, true)
+      };
 
-        var urlEndPoint = "https://calypso-dating.herokuapp.com/api/user/subscribe?email=" + userEmail;
-        
-        var eventSource = new EventSource(urlEndPoint, { withCredentials: true });
+      function checkMatch(){
+        if(matchDecision == 1){//NO MATCH
+            var URL=prefix+"/api/user/update/match?user="+userEmail+"&answer=1";
 
-        window.onbeforeunload = function(){
-          eventSource.close();
-        };
+            ajaxGet(URL, function(results){
+              available=1;
+              $('#main-container').addClass("invisible");
+              findMatch();
+            });
+        }
+        else if(myDecision == 2 && matchDecision == 2){//WE HAVE A MATCH
+          var URL=prefix+"/api/user/update/match?user="+userEmail+"&answer=2";
 
-        eventSource.onopen = function() {
-          setCookie("subscribe", 1);
-          if(getCookie("active") == 0){
-            nowActive(userEmail);
-            setCookie("active", 1);
-          }
-
-          findMatch();
-
-        };
-
-        eventSource.addEventListener("potentialMatch", function(event) {
-          //this is where the availability check is made
-          console.log("WE RECEIVED A MATCH");
-          
-            available=0;
-            var matchData = JSON.parse(event.data);
-            $('#noResults').addClass("invisible");
-
-            console.log(matchData);
-            console.log(matchData.images[0]);
-            console.log(matchData.images);
-            $('#main-container').css("background-image", "url(" + matchData.images[0] + ")");
-            $('#name').html(matchData.name);
-            $('#bio').html(matchData.bio);
-            $('#main-container').removeClass("invisible");
-            setTimeout(rematch, 15000);
-            //send message to server reporting status
-        })
-
-        
+          ajaxGet(URL, function(results){
+            console.log(results);
+            let JSresponse = JSON.parse(results);
+            nowInactive(userEmail);
+            $('#main-container').addClass("invisible");
+            $('#chat-container').removeClass("invisible");
+          });
+        }
       }
+
+
+      let connectButton = select("#webchat_connect");
+      let disconnectButton = document.getElementById("#disconnect");
+
+      connect(userEmail).then((stompClient) => stompSubscribe(stompClient, prefix+'/user/queue/newMember', (data) => {
+              console.log(data.body);//Error handle here "Could not connect to the server..."
+            })).then((stompClient) => stompClientSendMessage(stompClient, prefix+'/app/register', userEmail))
+            .then((stompClient) => stompSubscribe(stompClient, prefix+`/user/${userEmail}/msg`, (data) => {
+                    handleMessage(stompClient, userEmail, JSON.parse(data.body))
+                  })).then((stompClient) => { //5
+              disconnectButton.addEventListener('click', () => disconnect(stompClient, userEmail, disconnectButton, true), true); // 6
+              return stompClient;
+            })
 
     </script>
 
