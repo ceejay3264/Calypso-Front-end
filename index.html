@@ -94,7 +94,7 @@
             $('#soButton').removeClass("invisible");
             console.log(getCookie("active"));
             if(getCookie("active") == 1){
-                nowInactive(userEmail);
+                nowInactive(userEmail, 0);
                 setCookie("active", 0);
             }
         }

@@ -11,7 +11,7 @@ function signOut(){
     // for (var i = 0; i < allCookies.length; i++) 
     //                 document.cookie = allCookies[i] + "=;expires=" 
     //                 + new Date(0).toUTCString(); 
-    if(getCookie("active") == 1) nowInactive(userEmail);
+    if(getCookie("active") == 1) nowInactive(userEmail, 0);
 }
 
 

@@ -456,7 +456,7 @@
             $('#soButton').removeClass("invisible");
             loadProfileData();
             if(getCookie("active") == 1){
-                nowInactive(userEmail);
+                nowInactive(userEmail, 0);
                 setCookie("active", 0);
             }
         }else{

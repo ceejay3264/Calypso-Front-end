@@ -627,7 +627,7 @@
           ajaxGet(URL, function(results){
             console.log(results);
             let JSresponse = JSON.parse(results);
-            nowInactive(userEmail);
+            nowInactive(userEmail, 0);
             $('#main-container').addClass("invisible");
             $('#chat-container').removeClass("invisible");
           });
