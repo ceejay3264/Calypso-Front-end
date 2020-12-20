@@ -443,6 +443,7 @@
       
       function connect(username){ //1-1
         return new Promise((resolve, reject) => {
+          console.log(prefix+'/websocket-chat');
           let stompClient = Stomp.over(new SockJS(prefix+'/websocket-chat'));
           console.log(stompClient);
           stompClient.connect({}, (frame) => resolve(stompClient));
