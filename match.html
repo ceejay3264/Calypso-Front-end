@@ -634,8 +634,6 @@
         }
       }
 
-
-      let connectButton = select("#webchat_connect");
       let disconnectButton = document.getElementById("#disconnect");
 
       connect(userEmail).then((stompClient) => stompSubscribe(stompClient, prefix+'/user/queue/newMember', (data) => {
